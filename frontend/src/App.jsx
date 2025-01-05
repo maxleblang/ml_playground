@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import {
   ReactFlow,
   ReactFlowProvider,
@@ -8,6 +8,7 @@ import {
   Controls,
   useReactFlow,
   Background,
+  Panel,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
@@ -31,6 +32,7 @@ const Playground = () => {
   const reactFlowWrapper = useRef(null);
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [rfInstance, setRfInstance] = useState(null);
   const { screenToFlowPosition } = useReactFlow();
   const [type] = useDnD();
  
@@ -71,6 +73,24 @@ const Playground = () => {
     },
     [screenToFlowPosition, type],
   );
+
+  // Sends JSON of model architecture to backend
+  const exportJSON = useCallback(async () => {
+    if (rfInstance) {
+      const flow = rfInstance.toObject();
+      // TODO: Send the JSON data to the backend!
+      console.log(flow)
+      const endpoint = "http://localhost:8000/model_json/"
+      const request = new Request(endpoint, {
+        method: "POST",
+        body: JSON.stringify(flow),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const res = await fetch(request);
+    }
+  }, [rfInstance]);
  
   return (
     <div className="dndflow">
@@ -84,9 +104,17 @@ const Playground = () => {
           onConnect={onConnect}
           onDrop={onDrop}
           onDragOver={onDragOver}
+          onInit={setRfInstance}
           fitView
           style={{ backgroundColor: "#F7F9FB" }}
         >
+          <Panel position="top-right">
+            <button onClick={exportJSON}>Export</button>
+            {/* <input
+              type="text"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-center text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 w-1/2 p-2 px-8"
+            /> */}
+          </Panel>
           <Controls />
           <Background />
         </ReactFlow>
