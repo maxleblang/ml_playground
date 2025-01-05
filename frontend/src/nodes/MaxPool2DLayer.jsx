@@ -1,15 +1,10 @@
-import React from 'react';
-import { Handle } from 'reactflow';
-import { shallow } from 'zustand/shallow';
+import { useCallback } from 'react';
+import { Handle } from '@xyflow/react';
  
-import { useStore } from '../store';
- 
-const selector = (id) => (store) => ({
-  setPoolSize: (e) => store.updateNode(id, { pool_size: e.target.value }),
-});
- 
-export default function MaxPool2DLayer({ id, data }) {
-  const { setPoolSize} = useStore(selector(id), shallow);
+function MaxPool2DLayer({ data }) {
+  const onChange = useCallback((evt) => {
+    console.log(evt.target.value);
+  }, []);
  
   return (
     <>
@@ -28,7 +23,7 @@ export default function MaxPool2DLayer({ id, data }) {
               placeholder='(x,y,...)'
               type="text"
               value={data.pool_size}
-              onChange={setPoolSize}
+              //onChange={setPoolSize}
             />
           </label>
   
@@ -39,3 +34,5 @@ export default function MaxPool2DLayer({ id, data }) {
     </>
   );
 }
+
+export default MaxPool2DLayer;

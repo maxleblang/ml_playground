@@ -5,10 +5,10 @@ import FlattenLayer from './FlattenLayer';
 
 
 const customNodes = {
-    "Input": InputLayer,
-    "Conv2D": Conv2DLayer,
-    "MaxPool2D": MaxPool2DLayer,
-    "Flatten": FlattenLayer
+    Input: InputLayer,
+    Conv2D: Conv2DLayer,
+    MaxPool2D: MaxPool2DLayer,
+    Flatten: FlattenLayer
 };
 
 export default customNodes;

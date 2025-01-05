@@ -1,17 +1,10 @@
-import React from 'react';
-import { Handle } from 'reactflow';
-import { shallow } from 'zustand/shallow';
+import { useCallback } from 'react';
+import { Handle } from '@xyflow/react';
  
-import { useStore } from '../store';
- 
-const selector = (id) => (store) => ({
-  setFilters: (e) => store.updateNode(id, { filters: e.target.value }),
-  setKernel: (e) => store.updateNode(id, { kernel: e.target.value }),
-  setActivation: (e) => store.updateNode(id, { activation: e.target.value }),
-});
- 
-export default function Conv2DLayer({ id, data }) {
-  const { setFilters, setKernel, setActivation } = useStore(selector(id), shallow);
+function Conv2DLayer({ data }) {
+  const onChange = useCallback((evt) => {
+    console.log(evt.target.value);
+  }, []);
  
   return (
     <>
@@ -29,7 +22,7 @@ export default function Conv2DLayer({ id, data }) {
               placeholder='n'
               type="text"
               value={data.filters}
-              onChange={setFilters}
+              //onChange={setFilters}
             />
           </label>
 
@@ -40,7 +33,7 @@ export default function Conv2DLayer({ id, data }) {
               placeholder='(x,y,...)'
               type="text"
               value={data.kernel}
-              onChange={setKernel}
+              //nChange={setKernel}
             />
           </label>
   
@@ -49,7 +42,7 @@ export default function Conv2DLayer({ id, data }) {
             <select
               className="bg-gray-50 border border-gray-300 text-gray-900 text-center text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 w-full p-2"
               value={data.activation} 
-              onChange={setActivation}
+              //onChange={setActivation}
             >
               <option value="sigmoid">Sigmoid</option>
               <option value="relu">ReLU</option>
@@ -62,3 +55,5 @@ export default function Conv2DLayer({ id, data }) {
     </>
   );
 }
+
+export default Conv2DLayer;

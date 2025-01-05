@@ -1,7 +1,6 @@
-import React from 'react';
-import { Handle } from 'reactflow';
+import { Handle } from '@xyflow/react';
 
-export default function FlattenLayer({ id, data }) {
+function FlattenLayer({ data }) {
   return (
     <>
       <div className='w-16 h-32 bg-orange-300 rounded-md border-2 border-stone-900'>
@@ -17,3 +16,5 @@ export default function FlattenLayer({ id, data }) {
     </>
   );
 }
+
+export default FlattenLayer;
