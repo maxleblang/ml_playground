@@ -1,10 +1,8 @@
 import { useCallback } from 'react';
-import { Handle } from '@xyflow/react';
+import { Handle, useReactFlow } from '@xyflow/react';
  
-function MaxPool2DLayer({ data }) {
-  const onChange = useCallback((evt) => {
-    console.log(evt.target.value);
-  }, []);
+function MaxPool2DLayer({ id, data }) {
+  const { updateNodeData } = useReactFlow();
  
   return (
     <>
@@ -23,7 +21,7 @@ function MaxPool2DLayer({ data }) {
               placeholder='(x,y,...)'
               type="text"
               value={data.pool_size}
-              //onChange={setPoolSize}
+              onChange={useCallback((evt) => {updateNodeData(id, { pool_size: evt.target.value })})}
             />
           </label>
   

@@ -1,10 +1,9 @@
 import { useCallback } from 'react';
-import { Handle } from '@xyflow/react';
+import { Handle, useReactFlow } from '@xyflow/react';
+
  
-function InputLayer({ data }) {
-  const onChange = useCallback((evt) => {
-    console.log(evt.target.value);
-  }, []);
+function InputLayer({ id, data }) {
+  const { updateNodeData } = useReactFlow();
  
   return (
     <>
@@ -19,7 +18,7 @@ function InputLayer({ data }) {
               placeholder='(x,y,...)'
               type="text"
               value={data.shape}
-              //onChange={setInputShape}
+              onChange={useCallback((evt) => {updateNodeData(id, { shape: evt.target.value })})}
               //onBlur={validateInputShape}
             />
           </label>

@@ -1,6 +1,6 @@
 import { Handle } from '@xyflow/react';
 
-function FlattenLayer({ data }) {
+function FlattenLayer() {
   return (
     <>
       <div className='w-16 h-32 bg-orange-300 rounded-md border-2 border-stone-900'>

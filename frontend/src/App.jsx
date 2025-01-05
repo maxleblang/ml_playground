@@ -20,13 +20,13 @@ const initialNodes = [
   {
     id: '1',
     type: 'Input',
-    data: { label: 'input node' },
+    data: { shape: ""},
     position: { x: 250, y: 5 },
   },
 ];
  
 let id = 0;
-const getId = () => `dndnode_${id++}`;
+const getId = () => `node_${id++}`;
  
 const Playground = () => {
   const reactFlowWrapper = useRef(null);
@@ -35,7 +35,7 @@ const Playground = () => {
   const [rfInstance, setRfInstance] = useState(null);
   const { screenToFlowPosition } = useReactFlow();
   const [type] = useDnD();
- 
+
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
     [],
@@ -66,7 +66,7 @@ const Playground = () => {
         id: getId(),
         type,
         position,
-        data: { label: `${type} node` },
+        data: { },
       };
  
       setNodes((nds) => nds.concat(newNode));
@@ -82,11 +82,11 @@ const Playground = () => {
       console.log(flow)
       const endpoint = "http://localhost:8000/model_json/"
       const request = new Request(endpoint, {
-        method: "POST",
-        body: JSON.stringify(flow),
         headers: {
           "Content-Type": "application/json",
         },
+        method: "POST",
+        body: JSON.stringify(flow),
       });
       const res = await fetch(request);
     }

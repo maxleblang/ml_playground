@@ -3,21 +3,15 @@ from pydantic import BaseModel
 class Edge(BaseModel):
     id: str
     source: str
-    sourceHandle: str | None = None
     target: str
-    targetHandle: str | None = None
 
 
 class Node(BaseModel):
     data: dict
-    dragging: bool | None = None
-    height: int
     id: str
+    measured: dict
     position: dict
-    positionAbsolute: dict
-    selected: bool | None = None
     type: str
-    width: int
 
 
 class modelJSON(BaseModel):
